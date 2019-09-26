@@ -1,7 +1,8 @@
 import expo from 'expo';
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, FlatList, ScrollView } from "react-native";
 import Deck from './src/Deck'
+import {Card, Button} from 'react-native-elements';
 
 const DATA = [
   { id: 1, text: 'Card #1', uri: 'http://imgs.abduzeedo.com/files/paul0v2/unsplash/unsplash-04.jpg' },
@@ -20,14 +21,34 @@ class App extends React.Component {
 
 renderCard(item){
   return(
-    <Text>{item.text}</Text>
+    
+    <Card
+      key={item.id}
+      tite={item.text}
+      image={{uri: item.uri}}
+
+
+    >
+    <Text style={{marginBottom:10}}>
+      Customize</Text>
+      <Button
+        icon={{name: 'code'}}
+        backgroundColor= "#03A9F4"
+        title="View!"
+        />
+      
+
+
+    </Card>
+    
+    
   );
 }
 
 render(){
   return (
     <View style={styles.container}>
-      <Deck
+      <Deck 
       data={DATA}
       renderCard={this.renderCard}
       
@@ -41,6 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  
     
   }
 });

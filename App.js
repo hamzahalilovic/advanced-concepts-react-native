@@ -16,12 +16,25 @@ const DATA = [
 
 
 
-export default function App() {
+class App extends React.Component {
+
+renderCard(item){
+  return(
+    <Text>{item.text}</Text>
+  );
+}
+
+render(){
   return (
     <View style={styles.container}>
-      <Deck/>
+      <Deck
+      data={DATA}
+      renderCard={this.renderCard}
+      
+      />
     </View>
   );
+}
 }
 
 const styles = StyleSheet.create({
@@ -31,3 +44,5 @@ const styles = StyleSheet.create({
     
   }
 });
+ 
+export default App;

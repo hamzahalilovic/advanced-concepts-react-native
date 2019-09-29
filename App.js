@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View, FlatList, ScrollView } from "react-native";
 import Deck from "./src/Deck";
 import { Card, Button } from "react-native-elements";
+// import Ball from "./src/Ball";
 
 const DATA = [
   {
@@ -66,6 +67,8 @@ class App extends React.Component {
       <View style={styles.container}>
         <Deck data={DATA} renderCard={this.renderCard} />
       </View>
+      
+      
     );
   }
 }

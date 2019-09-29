@@ -3,16 +3,23 @@ import { View, StyleSheet, Animated, Text } from "react-native";
 import { black } from "ansi-colors";
 
 class Ball extends Component {
-  componentWillMount() {
+
+  state = {
+    position : new Animated.ValueXY(0, 0)
+  }
+
+  componentDidMount() {
     //how to do DidMount
-    this.position = new Animated.ValueXY(0, 0);
-    Animated.spring(this.position, { toValue: { x: 200, y: 500 } }).start();
+    // const position = new Animated.ValueXY(0, 0);
+    // this.setState({position})
+    Animated.spring(this.state.position, { toValue: { x: 200, y: 500 } }).start();
   }
 
   render() {
+    console.warn(this.state.position)
     return (
       //getLayout not in DidMount
-      <Animated.View style={this.position.getLayout()}>
+      <Animated.View style={this.state.position.getLayout()}>
         <View style={styles.ball} />
       </Animated.View>
     );

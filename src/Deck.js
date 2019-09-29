@@ -9,18 +9,45 @@ class Deck extends Component {
 
     const panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (event, gestureState) => true,
+
       onPanResponderMove: (event, gestureState) => {
         //set position by the move
         position.setValue({ x: gestureState.dx, y: gestureState.dy });
       },
       onPanResponderRelease: (event, gestureState) => {}
     });
-    //this.position=position;
+    //this.position=position
     this.state = { panResponder, position };
   }
 
+  getCardStyle() {
+    //interpolate
+    const { position } = thi.state;
+    const rotate = position.x.interpolate({
+      inputRange: [-500, 0, 500],
+      outputRange: ["-120deg", "0deg", "120deg"]
+    });
+
+    return {
+      ...position.getLayout(),
+      transform: [{ rotate }]
+    };
+  }
+
   renderCards() {
-    return this.props.data.map(item => {
+    return this.props.data.map((item, index) => {
+      if (index === 0) {
+        return (
+          <Animated.View
+            key={item.id}
+            style={this.getCardStyle()}
+            {...this.state.panResponder.panHandlers}
+          >
+            {this.props.renderCard(item)}
+          </Animated.View>
+        );
+      }
+
       return this.props.renderCard(item);
     });
   }
@@ -28,12 +55,7 @@ class Deck extends Component {
   render() {
     return (
       //adding the gesture to animation
-      <Animated.View
-        style={this.state.position.getLayout()}
-        {...this.state.panResponder.panHandlers}
-      >
-        {this.renderCards()}
-      </Animated.View>
+      <View>{this.renderCards()}</View>
     );
   }
 }
